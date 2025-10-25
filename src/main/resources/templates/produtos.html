@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cachorrinho Feliz - Produtos</title>
+
+    <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
+
+    <style>
+        /* (Tu CSS no necesita cambios, no tiene URLs) */
+        .fakeimagem{
+          height: 200px;
+          background: #6051ee;
+        }
+        h1{
+          font-family: 'Arial Black', Gadget, sans-serif;
+          font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/_header :: header}"></div>
+<div th:replace="~{fragments/_navbar :: navbar}"></div>
+
+<div class="container mt-5">
+
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1>Nossos Produtos</h1>
+            <p class="lead fs-4">Tudo que seu pet precisa para ser feliz e saudável.</p>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-3 mb-4" th:each="prod : ${produtos}">
+            <div class="card h-100 shadow-sm">
+
+                <img th:src="${prod.imageUrl != null ? prod.imageUrl : 'https://via.placeholder.com/300x200'}"
+                     class="card-img-top" alt="Imagem do Produto">
+
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title" th:text="${prod.name}">Nome do Produto</h5>
+                    <p class="card-text" th:text="${prod.description}">Descrição do produto...</p>
+
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${#numbers.formatCurrency(prod.price)}">R$ 0,00</h6>
+
+                    <a href="#" class="btn btn-primary btn-sm mt-auto">
+                        Adicionar ao Carrinho (Em breve)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/_footer :: footer}"></div>
+
+<script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cachorrinho Feliz - Contato</title>
+
+    <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
+
+    <style>
+
+        .fakeimagem{
+          height: 200px;
+          background: #6051ee;
+        }
+        h1{
+          font-family: 'Arial Black', Gadget, sans-serif;
+          font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/_header :: header}"></div>
+<div th:replace="~{fragments/_navbar :: navbar}"></div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2>Entre em Contato</h2>
+            <p class="lead">Queremos ouvir você! Preencha o formulário ou use nossos canais diretos abaixo.</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-3">
+        <div class="col-6">
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-6 bg-light p-4 rounded-5 border">
+            <h4 class="test-center">Envie uma Mensagem</h4>
+            <p class="text-muted">Como você já está logado, não precisamos pedir seu nome ou e-mail. 😉</p>
+
+            <form th:action="@{/contacto}" method="post">
+
+                <div>
+                    <label for="mensagem" class="form-label">Mensagem</label>
+                    <textarea class="form-control" id="mensagem" name="message" rows="6" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary btn-lg">Enviar Mensagem</button>
+            </form>
+        </div>
+
+        <div class="col-6 bg-light p-4 rounded-5 border">
+            <h3 class="text-center">Informações de Contato</h3>
+            <p><strong>Telefone:</strong> (49) 991839170</p>
+            <p><strong>Email:</strong> contato@cachorrinhofeliz.com</p>
+            <p><strong>Endereço:</strong> Rua Principal, 123 - Centro, Xanxerê, SC</p>
+
+            <h3 class="mt-4 text-center">Nos Encontre</h3>
+            <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28383.18181298418!2d-52.41842802099351!3d-26.8770877983633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e4a1a302a7c58d%3A0x6a2c0f2f35d1f899!2sXanxer%C3%AA%2C%20SC!5e0!3m2!1spt-BR!2sbr!4v1668615392686!5m2!1spt-BR!2sbr"
+                    width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" class="rounded shadow-sm">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/_footer :: footer}"></div>
+<script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

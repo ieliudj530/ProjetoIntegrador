@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Mensagens Recebidas</title>
+</head>
+<body>
+<h2>Caixa de Entrada - Mensagens de Contato</h2>
+
+<table border="1" style="width:100%">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Data</th>
+    <th>Usuário (Email)</th>
+    <th>Mensagem</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="msg : ${mensajes}">
+    <td th:text="${msg.id}">1</td>
+    <td th:text="${#temporals.format(msg.createdAt, 'dd/MM/yyyy HH:mm')}">Data</td>
+    <td th:text="${msg.user?.email}">usuario@email.com</td>
+    <td th:text="${msg.message}">Conteúdo da mensagem...</td>
+  </tr>
+  </tbody>
+</table>
+
+<p><a th:href="@{/admin/productos}">Voltar para Produtos</a></p>
+<p><a th:href="@{/home}">Voltar para Home</a></p>
+
+</body>
+</html>

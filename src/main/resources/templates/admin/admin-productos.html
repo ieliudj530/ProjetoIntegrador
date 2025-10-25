@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gerenciar Produtos</title>
+</head>
+<body>
+<h2>Gerenciamento de Produtos</h2>
+
+<div th:if="${success}" style="color: green;" th:text="${success}"></div>
+<div th:if="${error}" style="color: red;" th:text="${error}"></div>
+
+<p>
+    <a th:href="@{/admin/productos/nuevo}">+ Adicionar Novo Produto</a>
+</p>
+
+<table border="1" style="width:100%">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prod : ${productos}">
+        <td th:text="${prod.id}">1</td>
+        <td th:text="${prod.name}">Nome do Produto</td>
+        <td th:text="${#numbers.formatCurrency(prod.price)}">R$ 0,00</td>
+        <td>
+            <a th:href="@{/admin/productos/editar/{id}(id=${prod.id})}">Editar</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{/admin/productos/eliminar/{id}(id=${prod.id})}"
+               onclick="return confirm('Tem certeza que deseja eliminar este produto?');">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p><a th:href="@{/home}">Voltar para Home</a></p>
+
+</body>
+</html>
