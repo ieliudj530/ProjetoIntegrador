@@ -6,6 +6,14 @@
   <title>Admin - Reportes de Vendas</title>
   <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* 2. Limita a altura do gráfico */
+    .chart-container {
+        position: relative;
+        height: 40vh; /* Altura de 40% da tela */
+        width: 100%;
+    }
+  </style>
 </head>
 <body>
 
@@ -16,100 +24,209 @@
   <div class="row">
     <div class="col-12">
       <h2 class="mb-4 text-center">Reportes de Vendas</h2>
-
-      <ul class="nav nav-tabs nav-fill" id="reportTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="regiao-tab" data-bs-toggle="tab" data-bs-target="#regiao" type="button" role="tab">Por Região</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="ano-tab" data-bs-toggle="tab" data-bs-target="#ano" type="button" role="tab">Por Ano</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="mes-tab" data-bs-toggle="tab" data-bs-target="#mes" type="button" role="tab">Por Mês</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="trimestre-tab" data-bs-toggle="tab" data-bs-target="#trimestre" type="button" role="tab">Por Trimestre</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab">Por Semestre</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="dia-tab" data-bs-toggle="tab" data-bs-target="#dia" type="button" role="tab">Por Dia (Tabela)</button>
-        </li>
-      </ul>
-
-      <div class="tab-content border border-top-0 rounded-bottom p-4" id="reportTabContent">
-
-        <div class="tab-pane fade show active" id="regiao" role="tabpanel">
-          <div class="card shadow-sm">
-            <div class="card-header">Total de Vendas por Região</div>
-            <div class="card-body">
-              <canvas id="chartRegiao"></canvas>
-              <div th:replace="~{fragments/_report_table :: table('reportByRegion', ${reportByRegion}, 'Região', 'Total')}"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-pane fade" id="ano" role="tabpanel">
-          <div class="card shadow-sm">
-            <div class="card-header">Total de Vendas por Ano</div>
-            <div class="card-body">
-              <canvas id="chartAno"></canvas>
-              <div th:replace="~{fragments/_report_table :: table('reportByYear', ${reportByYear}, 'Ano', 'Total')}"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-pane fade" id="mes" role="tabpanel">
-          <div class="card shadow-sm">
-            <div class="card-header">Total de Vendas por Mês</div>
-            <div class="card-body">
-              <canvas id="chartMes"></canvas>
-              <div th:replace="~{fragments/_report_table :: table('reportByMonth', ${reportByMonth}, 'Ano-Mês', 'Total')}"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-pane fade" id="trimestre" role="tabpanel">
-          <div class="card shadow-sm">
-            <div class="card-header">Total de Vendas por Trimestre</div>
-            <div class="card-body">
-              <canvas id="chartTrimestre"></canvas>
-              <div th:replace="~{fragments/_report_table :: table('reportByQuarter', ${reportByQuarter}, 'Ano-Trimestre', 'Total')}"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-pane fade" id="semestre" role="tabpanel">
-          <div class="card shadow-sm">
-            <div class="card-header">Total de Vendas por Semestre</div>
-            <div class="card-body">
-              <canvas id="chartSemestre"></canvas>
-              <div th:replace="~{fragments/_report_table :: table('reportBySemester', ${reportBySemester}, 'Ano-Semestre', 'Total')}"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-pane fade" id="dia" role="tabpanel">
-          <div class="card shadow-sm">
-            <div class="card-header">Total de Vendas por Dia</div>
-            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-              <div th:replace="~{fragments/_report_table :: table('reportByDate', ${reportByDate}, 'Data', 'Total')}"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
   </div>
-</div>
 
-<div th:replace="~{fragments/_footer :: footer}"></div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="nav flex-column nav-pills me-3 border rounded p-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link active" id="v-pills-regiao-tab" data-bs-toggle="pill" data-bs-target="#v-pills-regiao" type="button" role="tab">Por Região</button>
+        <button class="nav-link" id="v-pills-ano-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ano" type="button" role="tab">Por Ano</button>
+        <button class="nav-link" id="v-pills-mes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mes" type="button" role="tab">Por Mês</button>
+        <button class="nav-link" id="v-pills-trimestre-tab" data-bs-toggle="pill" data-bs-target="#v-pills-trimestre" type="button" role="tab">Por Trimestre</button>
+        <button class="nav-link" id="v-pills-semestre-tab" data-bs-toggle="pill" data-bs-target="#v-pills-semestre" type="button" role="tab">Por Semestre</button>
+        <button class="nav-link" id="v-pills-dia-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dia" type="button" role="tab">Por Dia (Tabela)</button>
+      </div>
+    </div>
+
+    <div class="col-md-9 border rounded p-3">
+      <div class="tab-content" id="v-pills-tabContent">
+
+        <div class="tab-pane fade show active" id="v-pills-regiao" role="tabpanel">
+          <h5>Total de Vendas por Região</h5>
+          <div class="chart-container">
+            <canvas id="chartRegiao"></canvas>
+          </div>
+          <div th:replace="~{fragments/_report_table :: table('reportByRegion', ${reportByRegion}, 'Região', 'Total')}"></div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-ano" role="tabpanel">
+          <h5>Total de Vendas por Ano</h5>
+          <div class="chart-container">
+            <canvas id="chartAno"></canvas>
+          </div>
+          <div th:replace="~{fragments/_report_table :: table('reportByYear', ${reportByYear}, 'Ano', 'Total')}"></div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-mes" role="tabpanel">
+          <h5>Total de Vendas por Mês</h5>
+          <div class="chart-container">
+            <canvas id="chartMes"></canvas>
+          </div>
+          <div th:replace="~{fragments/_report_table :: table('reportByMonth', ${reportByMonth}, 'Ano-Mês', 'Total')}"></div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-trimestre" role="tabpanel">
+          <h5>Total de Vendas por Trimestre</h5>
+          <div class="chart-container">
+            <canvas id="chartTrimestre"></canvas>
+          </div>
+          <div th:replace="~{fragments/_report_table :: table('reportByQuarter', ${reportByQuarter}, 'Ano-Trimestre', 'Total')}"></div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-semestre" role="tabpanel">
+          <h5>Total de Vendas por Semestre</h5>
+          <div class="chart-container">
+            <canvas id="chartSemestre"></canvas>
+          </div>
+          <div th:replace="~{fragments/_report_table :: table('reportBySemester', ${reportBySemester}, 'Ano-Semestre', 'Total')}"></div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-dia" role="tabpanel">
+          <h5>Total de Vendas por Dia</h5>
+          <div style="max-height: 400px; overflow-y: auto;">
+            <div th:replace="~{fragments/_report_table :: table('reportByDate', ${reportByDate}, 'Data', 'Total')}"></div>
+          </div>
+        </div>
+      </div> </div> </div> </div> <div th:replace="~{fragments/_footer :: footer}"></div>
 
 <script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
 
-<script th:inline="javascript">/*<![CDATA[*/ /* ... tus datos ... */ /*]]>*/</script>
-<script>/* ... tu lógica de dibujar gráficos ... */</script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  function processSimpleData(data) {
+      if (!Array.isArray(data)) return { labels: [], values: [] }; // Segurança
+      const labels = data.map(item => item[0] || 'N/A'); // Evita null
+      const values = data.map(item => item[1] || 0);    // Evita null
+      return { labels, values };
+  }
+  function processTimeData(data, separator = '-') {
+       if (!Array.isArray(data)) return { labels: [], values: [] }; // Segurança
+      const labels = data.map(item => `${item[0] || '?'}${separator}${item[1] || '?'}`); // Evita null
+      const values = data.map(item => item[2] || 0); // Evita null
+      return { labels, values };
+  }
+  // Adiciona logs para verificar os dados recebidos
+  console.log('Dados brutos reportByRegion:', /*[[${reportByRegion}]]*/ 'ERRO: reportByRegion não encontrado');
+  const dataRegiao = processSimpleData(/*[[${reportByRegion}]]*/ []);
+  console.log('Dados processados dataRegiao:', dataRegiao);
+
+  console.log('Dados brutos reportByYear:', /*[[${reportByYear}]]*/ 'ERRO: reportByYear não encontrado');
+  const dataAno = processSimpleData(/*[[${reportByYear}]]*/ []);
+   console.log('Dados processados dataAno:', dataAno);
+
+  console.log('Dados brutos reportByMonth:', /*[[${reportByMonth}]]*/ 'ERRO: reportByMonth não encontrado');
+  const dataMes = processTimeData(/*[[${reportByMonth}]]*/ [], '-');
+   console.log('Dados processados dataMes:', dataMes);
+
+  console.log('Dados brutos reportByQuarter:', /*[[${reportByQuarter}]]*/ 'ERRO: reportByQuarter não encontrado');
+  const dataTrimestre = processTimeData(/*[[${reportByQuarter}]]*/ [], ' T');
+  console.log('Dados processados dataTrimestre:', dataTrimestre);
+
+  console.log('Dados brutos reportBySemester:', /*[[${reportBySemester}]]*/ 'ERRO: reportBySemester não encontrado');
+  const dataSemestre = processTimeData(/*[[${reportBySemester}]]*/ [], ' S');
+  console.log('Dados processados dataSemestre:', dataSemestre);
+  /*]]>*/
+</script>
+
+<script>
+  // Variáveis para guardar as instâncias
+  let chartRegiaoInstance, chartAnoInstance, chartMesInstance, chartTrimestreInstance, chartSemestreInstance;
+
+  // Opções comuns
+  const commonChartOptions = {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { font: { size: 14 } } } },
+      scales: { x: { ticks: { font: { size: 12 } } }, y: { ticks: { font: { size: 12 } } } }
+  };
+  const pieChartOptions = {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { font: { size: 14 } } } }
+  };
+
+  // --- TESTE 1: Chart.js carregou? ---
+  console.log('Objeto Chart:', typeof Chart !== 'undefined' ? Chart : 'ERRO: Chart não definido!');
+
+  // --- Funções para desenhar (com logs) ---
+  function drawChartRegiao() {
+      const canvasElement = document.getElementById('chartRegiao');
+      console.log('Canvas Regiao existe?', canvasElement);
+      if (!canvasElement) return;
+      const ctxRegiao = canvasElement.getContext('2d');
+      console.log('Dados para Regiao:', dataRegiao);
+      if (!dataRegiao || !dataRegiao.labels || !dataRegiao.values || dataRegiao.labels.length === 0) {
+           console.warn('WARN: Dados para Regiao inválidos ou vazios. Gráfico não será desenhado.');
+           return;
+      }
+      console.log('Tentando desenhar Regiao...');
+      try {
+          chartRegiaoInstance = new Chart(ctxRegiao, {
+              type: 'pie',
+              data: { labels: dataRegiao.labels, datasets: [{ label: 'Vendas por Região', data: dataRegiao.values, backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'] }] },
+              options: pieChartOptions
+          });
+          console.log('Gráfico Regiao OK.');
+      } catch (e) {
+          console.error('ERRO ao desenhar Regiao:', e);
+      }
+  }
+
+  function drawBarChart(canvasId, chartInstanceVariable, data, label, color) {
+      if (window[chartInstanceVariable]) return; // Já desenhado
+      const canvasElement = document.getElementById(canvasId);
+      console.log(`Canvas ${canvasId} existe?`, canvasElement);
+      if (!canvasElement) return;
+      const ctx = canvasElement.getContext('2d');
+      console.log(`Dados para ${canvasId}:`, data);
+       if (!data || !data.labels || !data.values || data.labels.length === 0) {
+           console.warn(`WARN: Dados para ${canvasId} inválidos ou vazios. Gráfico não será desenhado.`);
+           return;
+      }
+      console.log(`Tentando desenhar ${canvasId}...`);
+       try {
+          window[chartInstanceVariable] = new Chart(ctx, {
+              type: 'bar',
+              data: { labels: data.labels, datasets: [{ label: label, data: data.values, backgroundColor: color }] },
+              options: commonChartOptions
+          });
+           console.log(`Gráfico ${canvasId} OK.`);
+      } catch (e) {
+           console.error(`ERRO ao desenhar ${canvasId}:`, e);
+      }
+  }
+
+  // --- Lógica Principal (com logs) ---
+  console.log('Script principal iniciado. Esperando DOMContentLoaded...');
+  document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOMContentLoaded disparado.');
+      // Desenha o primeiro gráfico (Região)
+      drawChartRegiao();
+
+      // Adiciona listeners para as outras abas (com logs)
+      console.log('Adicionando listeners para as abas...');
+      document.querySelectorAll('#v-pills-tab button').forEach(button => {
+          button.addEventListener('shown.bs.tab', (event) => {
+              const targetId = event.target.getAttribute('data-bs-target');
+              console.log(`Aba ${targetId} mostrada. Tentando desenhar...`);
+              switch (targetId) {
+                  case '#v-pills-ano':
+                      drawBarChart('chartAno', 'chartAnoInstance', dataAno, 'Total de Vendas por Ano', '#36A2EB');
+                      break;
+                  case '#v-pills-mes':
+                      drawBarChart('chartMes', 'chartMesInstance', dataMes, 'Total de Vendas por Mês', '#FFCE56');
+                      break;
+                  case '#v-pills-trimestre':
+                      drawBarChart('chartTrimestre', 'chartTrimestreInstance', dataTrimestre, 'Total de Vendas por Trimestre', '#4BC0C0');
+                      break;
+                  case '#v-pills-semestre':
+                      drawBarChart('chartSemestre', 'chartSemestreInstance', dataSemestre, 'Total de Vendas por Semestre', '#9966FF');
+                      break;
+              }
+          });
+      });
+      console.log('Listeners das abas adicionados.');
+  });
+</script>
 
 </body>
 </html>
