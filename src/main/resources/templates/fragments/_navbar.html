@@ -18,9 +18,33 @@
         <li class="nav-item">
           <a class="nav-link" th:href="@{/contacto}">Contatos</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/carrinho}">
+            🛒 Meu Carrinho
+          </a>
+        </li>
 
-        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-          <a class="nav-link" th:href="@{/admin/productos}" style="color: #00ff00;"><b>Painel Admin</b></a>
+        <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
+
+          <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false" style="color: #00ff00;">
+            <b>Painel Admin</b>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="adminMenu">
+            <li>
+              <a class="dropdown-item" th:href="@{/admin/productos}">Gerenciar Produtos</a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" th:href="@{/admin/mensajes}">Ver Mensagens</a>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" th:href="@{/admin/reportes}">Ver Reportes (Em breve)</a>
+            </li>
+          </ul>
         </li>
 
       </ul>

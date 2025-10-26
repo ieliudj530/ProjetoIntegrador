@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,5 +26,13 @@ public class Cart {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private List<CartItem> items;
+    private List<CartItem> items = new ArrayList<>();
+
+    public double getTotal() {
+        double total = 0.0;
+        for (CartItem item : this.items) {
+            total += item.getProduct().getPrice().doubleValue() * item.getQuantity();
+        }
+        return total;
+    }
 }

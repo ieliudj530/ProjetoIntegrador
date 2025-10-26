@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cachorrinho Feliz - Carrinho</title>
+    <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{fragments/_header :: header}"></div>
+<div th:replace="~{fragments/_navbar :: navbar}"></div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Meu Carrinho de Compras</h2>
+
+            <div th:if="${cart == null || cart.items.empty}" class="alert alert-info text-center">
+                Seu carrinho está vazio.
+                <a th:href="@{/produtos}" class="alert-link">Ver produtos</a>.
+            </div>
+
+            <div th:unless="${cart == null || cart.items.empty}">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço Unitário</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${cart.items}">
+                        <td th:text="${item.product.name}">Nome do Produto</td>
+                        <td th:text="${#numbers.formatCurrency(item.product.price)}">R$ 0,00</td>
+                        <td th:text="${item.quantity}">1</td>
+                        <td th:text="${#numbers.formatCurrency(item.product.price * item.quantity)}">R$ 0,00</td>
+                        <td>
+                            <form th:action="@{/carrinho/remover/{id}(id=${item.id})}" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot class="fw-bold">
+                    <tr>
+                        <td colspan="3" class="text-end">Total:</td>
+                        <td colspan="2" th:text="${#numbers.formatCurrency(cart.getTotal())}">R$ 0,00</td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+                <div class="text-end mt-4">
+                    <a href="#" class="btn btn-success btn-lg">
+                        Finalizar Compra (Em breve)
+                    </a>
+                </div>
+
+            </div> </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/_footer :: footer}"></div>
+
+<script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

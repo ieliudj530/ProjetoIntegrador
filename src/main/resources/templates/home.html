@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,6 @@
     <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
 
     <style>
-
         h1{
           font-family: 'Arial Black', Gadget, sans-serif;
           font-size: 100px;
@@ -40,16 +39,19 @@
 </head>
 <body>
 
-<div class="container text-center mt-2">
-    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-</div>
-
 <div th:replace="~{fragments/_header :: header}"></div>
 <div th:replace="~{fragments/_navbar :: navbar}"></div>
 
 <div class="container mt-5">
-    <div class="row ">
 
+    <div class="row mb-3">
+        <div class="col-12">
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        </div>
+    </div>
+
+    <div class="row ">
         <div class="col-8 bg-gradient p-4 border rounded-5">
             <h2>Nossos Principais Produtos</h2>
             <h5>Valido ate o mes de Dezembro/2025</h5>

@@ -1,43 +1,60 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Gerenciar Produtos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin - Gerenciar Produtos</title>
+    <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-<h2>Gerenciamento de Produtos</h2>
 
-<div th:if="${success}" style="color: green;" th:text="${success}"></div>
-<div th:if="${error}" style="color: red;" th:text="${error}"></div>
+<div th:replace="~{fragments/_header :: header}"></div>
+<div th:replace="~{fragments/_navbar :: navbar}"></div>
 
-<p>
-    <a th:href="@{/admin/productos/nuevo}">+ Adicionar Novo Produto</a>
-</p>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
 
-<table border="1" style="width:100%">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Preço</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="prod : ${productos}">
-        <td th:text="${prod.id}">1</td>
-        <td th:text="${prod.name}">Nome do Produto</td>
-        <td th:text="${#numbers.formatCurrency(prod.price)}">R$ 0,00</td>
-        <td>
-            <a th:href="@{/admin/productos/editar/{id}(id=${prod.id})}">Editar</a>
-            &nbsp;|&nbsp;
-            <a th:href="@{/admin/productos/eliminar/{id}(id=${prod.id})}"
-               onclick="return confirm('Tem certeza que deseja eliminar este produto?');">Eliminar</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Gerenciamento de Produtos</h2>
+                <a th:href="@{/admin/productos/nuevo}" class="btn btn-primary">+ Adicionar Novo Produto</a>
+            </div>
 
-<p><a th:href="@{/home}">Voltar para Home</a></p>
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="prod : ${productos}">
+                            <td th:text="${prod.id}">1</td>
+                            <td th:text="${prod.name}">Nome do Produto</td>
+                            <td th:text="${#numbers.formatCurrency(prod.price)}">R$ 0,00</td>
+                            <td>
+                                <a th:href="@{/admin/productos/editar/{id}(id=${prod.id})}" class="btn btn-sm btn-warning">Editar</a>
+                                <a th:href="@{/admin/productos/eliminar/{id}(id=${prod.id})}" class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Tem certeza que deseja eliminar este produto?');">Eliminar</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/_footer :: footer}"></div>
+
+<script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

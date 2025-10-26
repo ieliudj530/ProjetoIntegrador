@@ -1,38 +1,66 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title th:text="${pageTitle}">Formulário de Produto</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Admin - Formulário</title>
+    <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-<h2 th:text="${pageTitle}">Formulário de Produto</h2>
 
-<form th:action="@{/admin/productos/guardar}" th:object="${product}" method="post">
+<div th:replace="~{fragments/_header :: header}"></div>
+<div th:replace="~{fragments/_navbar :: navbar}"></div>
 
-    <input type="hidden" th:field="*{id}" />
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h2 class="card-title mb-0" th:text="${pageTitle}">Formulário de Produto</h2>
+                </div>
+                <div class="card-body p-4">
 
-    <div>
-        <label>Nome:</label>
-        <input type="text" th:field="*{name}" required />
-    </div>
-    <div>
-        <label>Descrição:</label>
-        <textarea th:field="*{description}" rows="3" style="width: 300px;"></textarea>
-    </div>
-    <div>
-        <label>Preço:</label>
-        <input type="number" step="0.01" th:field="*{price}" required />
-    </div>
-    <div>
-        <label>URL da Imagem:</label>
-        <input type="text" th:field="*{imageUrl}" />
-    </div>
+                    <form th:action="@{/admin/productos/guardar}" th:object="${product}" method="post">
 
-    <br/>
-    <div>
-        <button type="submit">Salvar</button>
-        <a th:href="@{/admin/productos}"><button type="button">Cancelar</button></a>
-    </div>
-</form>
+                        <input type="hidden" th:field="*{id}" />
 
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nome:</label>
+                            <input type="text" id="name" class="form-control" th:field="*{name}" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descrição:</label>
+                            <textarea id="description" class="form-control" th:field="*{description}" rows="3"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="price" class="form-label">Preço:</label>
+                                <input type="number" id="price" class="form-control" step="0.01" th:field="*{price}" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="imageUrl" class="form-label">URL da Imagem:</label>
+                                <input type="text" id="imageUrl" class="form-control" th:field="*{imageUrl}" />
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary btn-lg">Salvar</button>
+                            <a th:href="@{/admin/productos}" class="btn btn-secondary btn-lg">Cancelar</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/_footer :: footer}"></div>
+
+<script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

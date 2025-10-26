@@ -1,32 +1,53 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <title>Mensagens Recebidas</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin - Mensagens</title>
+  <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-<h2>Caixa de Entrada - Mensagens de Contato</h2>
 
-<table border="1" style="width:100%">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Data</th>
-    <th>Usuário (Email)</th>
-    <th>Mensagem</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="msg : ${mensajes}">
-    <td th:text="${msg.id}">1</td>
-    <td th:text="${#temporals.format(msg.createdAt, 'dd/MM/yyyy HH:mm')}">Data</td>
-    <td th:text="${msg.user?.email}">usuario@email.com</td>
-    <td th:text="${msg.message}">Conteúdo da mensagem...</td>
-  </tr>
-  </tbody>
-</table>
+<div th:replace="~{fragments/_header :: header}"></div>
+<div th:replace="~{fragments/_navbar :: navbar}"></div>
 
-<p><a th:href="@{/admin/productos}">Voltar para Produtos</a></p>
-<p><a th:href="@{/home}">Voltar para Home</a></p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-4">Caixa de Entrada - Mensagens de Contato</h2>
 
+      <div th:if="${mensajes.empty}" class="alert alert-info">
+        Nenhuma mensagem recebida ainda.
+      </div>
+
+      <div th:unless="${mensajes.empty}" class="card shadow-sm">
+        <div class="card-body">
+          <table class="table table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Data</th>
+              <th>Usuário (Email)</th>
+              <th>Mensagem</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="msg : ${mensajes}">
+              <td th:text="${msg.id}">1</td>
+              <td th:text="${#temporals.format(msg.createdAt, 'dd/MM/yyyy HH:mm')}">Data</td>
+              <td th:text="${msg.user?.email}">usuario@email.com</td>
+              <td th:text="${msg.message}">Conteúdo da mensagem...</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/_footer :: footer}"></div>
+
+<script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
