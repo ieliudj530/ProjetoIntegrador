@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin - Reportes de Vendas</title>
+  <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div th:replace="~{fragments/_header :: header}"></div>
+<div th:replace="~{fragments/_navbar :: navbar}"></div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-4 text-center">Reportes de Vendas</h2>
+
+      <ul class="nav nav-tabs nav-fill" id="reportTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="regiao-tab" data-bs-toggle="tab" data-bs-target="#regiao" type="button" role="tab">Por Região</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="ano-tab" data-bs-toggle="tab" data-bs-target="#ano" type="button" role="tab">Por Ano</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="mes-tab" data-bs-toggle="tab" data-bs-target="#mes" type="button" role="tab">Por Mês</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="trimestre-tab" data-bs-toggle="tab" data-bs-target="#trimestre" type="button" role="tab">Por Trimestre</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab">Por Semestre</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="dia-tab" data-bs-toggle="tab" data-bs-target="#dia" type="button" role="tab">Por Dia (Tabela)</button>
+        </li>
+      </ul>
+
+      <div class="tab-content border border-top-0 rounded-bottom p-4" id="reportTabContent">
+
+        <div class="tab-pane fade show active" id="regiao" role="tabpanel">
+          <div class="card shadow-sm">
+            <div class="card-header">Total de Vendas por Região</div>
+            <div class="card-body">
+              <canvas id="chartRegiao"></canvas>
+              <div th:replace="~{fragments/_report_table :: table('reportByRegion', ${reportByRegion}, 'Região', 'Total')}"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="ano" role="tabpanel">
+          <div class="card shadow-sm">
+            <div class="card-header">Total de Vendas por Ano</div>
+            <div class="card-body">
+              <canvas id="chartAno"></canvas>
+              <div th:replace="~{fragments/_report_table :: table('reportByYear', ${reportByYear}, 'Ano', 'Total')}"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="mes" role="tabpanel">
+          <div class="card shadow-sm">
+            <div class="card-header">Total de Vendas por Mês</div>
+            <div class="card-body">
+              <canvas id="chartMes"></canvas>
+              <div th:replace="~{fragments/_report_table :: table('reportByMonth', ${reportByMonth}, 'Ano-Mês', 'Total')}"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="trimestre" role="tabpanel">
+          <div class="card shadow-sm">
+            <div class="card-header">Total de Vendas por Trimestre</div>
+            <div class="card-body">
+              <canvas id="chartTrimestre"></canvas>
+              <div th:replace="~{fragments/_report_table :: table('reportByQuarter', ${reportByQuarter}, 'Ano-Trimestre', 'Total')}"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="semestre" role="tabpanel">
+          <div class="card shadow-sm">
+            <div class="card-header">Total de Vendas por Semestre</div>
+            <div class="card-body">
+              <canvas id="chartSemestre"></canvas>
+              <div th:replace="~{fragments/_report_table :: table('reportBySemester', ${reportBySemester}, 'Ano-Semestre', 'Total')}"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="dia" role="tabpanel">
+          <div class="card shadow-sm">
+            <div class="card-header">Total de Vendas por Dia</div>
+            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+              <div th:replace="~{fragments/_report_table :: table('reportByDate', ${reportByDate}, 'Data', 'Total')}"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/_footer :: footer}"></div>
+
+<script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
+
+<script th:inline="javascript">/*<![CDATA[*/ /* ... tus datos ... */ /*]]>*/</script>
+<script>/* ... tu lógica de dibujar gráficos ... */</script>
+
+</body>
+</html>
