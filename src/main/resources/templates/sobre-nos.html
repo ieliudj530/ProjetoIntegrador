@@ -1,54 +1,163 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cachorrinho Feliz - Quem Somos</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Clube Admin - Quem Somos</title>
 
-    <link th:href="@{/bootstrap-5.3.8-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 
     <style>
-        .brinquedos {
-          background: url([[@{/imagens/brinquedos.jpg}]]) no-repeat center;
-          background-size: cover;
-          height: 200px; /* <-- ¡AÑADIDO! */
+        .hero-section {
+            background: url([[@{/imagens/atividades.jpg}]]) center/cover no-repeat;
+            height: 250px;
+            border-radius: 0.35rem;
+            position: relative;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
         }
-        h1{
-          font-family: 'Arial Black', Gadget, sans-serif;
-          font-size: 100px;
+        .hero-section::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            border-radius: 0.35rem;
+        }
+        .hero-text {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            color: #fff;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
         }
     </style>
 </head>
-<body>
-<div th:replace="~{fragments/_header :: header}"></div>
-<div th:replace="~{fragments/_navbar :: navbar}"></div>
 
-<div class="container mt-5">
-    <div class="row ">
-        <div class="col-4 bg-light p-4 rounded-5 border">
-            <h2>Nossa Loja</h2>
-            <div class="brinquedos rounded"></div>
-            <p class="mt-3">Venha nos visitar! Estamos de portas abertas para receber você e seu melhor amigo com todo o carinho e a atenção que vocês merecem.</p>
+<body id="page-top">
+
+<div id="wrapper">
+
+    <ul th:replace="~{fragments/_sidebar :: sidebar}"></ul>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <div id="content">
+
+            <nav th:replace="~{fragments/_topbar :: topbar}"></nav>
+
+            <div class="container-fluid">
+
+                <h1 class="h3 mb-4 text-gray-800">Sobre o Clube</h1>
+
+                <div class="hero-section mb-4">
+                    <div class="hero-text">
+                        <h1 class="font-weight-bold">Quem Somos</h1>
+                        <p class="lead mb-0">Saúde, esporte e lazer para todos os sócios</p>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow h-100">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Nossa História</h6>
+                            </div>
+                            <div class="card-body">
+                                <p>Fundado em 2015, o <strong>Clube Admin</strong> nasceu com o objetivo de promover esporte, saúde e lazer de forma profissional e acolhedora. O clube cresceu com dedicação, investindo em infraestrutura, equipe especializada e atividades de qualidade para todas as idades.</p>
+                                <p class="mb-0">Nosso compromisso é com o bem-estar de cada sócio e visitante. Aqui, cada atleta, criança ou adulto encontra um espaço seguro e motivador para praticar esportes, socializar e desenvolver habilidades físicas e sociais.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow h-100">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Nossas Instalações</h6>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="mb-3 rounded overflow-hidden">
+                                    <img th:src="@{/imagens/atividades.jpg}" alt="Instalações" class="img-fluid" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div>
+                                <p class="mb-0">Venha conhecer nossas quadras, academias e espaços esportivos. Estamos prontos para receber nossos sócios com conforto, segurança e diversão!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body text-center">
+                                <div class="value-icon text-primary"><i class="fas fa-medal"></i></div>
+                                <div class="h5 font-weight-bold text-gray-800">Excelência</div>
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Qualidade Garantida</div>
+                                <div class="small text-gray-600 mt-2">Sempre buscando qualidade em todas as atividades e serviços.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body text-center">
+                                <div class="value-icon text-success"><i class="fas fa-handshake"></i></div>
+                                <div class="h5 font-weight-bold text-gray-800">Compromisso</div>
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Confiança Total</div>
+                                <div class="small text-gray-600 mt-2">Um clube confiável para toda a família e comunidade.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body text-center">
+                                <div class="value-icon text-info"><i class="fas fa-heartbeat"></i></div>
+                                <div class="h5 font-weight-bold text-gray-800">Saúde</div>
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Bem-estar</div>
+                                <div class="small text-gray-600 mt-2">Incentivo constante à prática de esportes e bem-estar.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body text-center">
+                                <div class="value-icon text-warning"><i class="fas fa-smile"></i></div>
+                                <div class="h5 font-weight-bold text-gray-800">Inclusão</div>
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Respeito e Alegria</div>
+                                <div class="small text-gray-600 mt-2">Espaço para todos, com respeito, diversidade e alegria.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
+        <footer th:replace="~{fragments/_footer :: footer}"></footer>
 
-        <div class="col-8 bg-light p-4 rounded-5 border">
-            <h2>Nossa História</h2>
-            <p>Fundado em 2020, o PetShop Cachorrinho Feliz nasceu de uma verdadeira paixão por animais. O que começou como uma pequena loja de bairro rapidamente cresceu, graças ao nosso compromisso em oferecer não apenas produtos de alta qualidade, mas um atendimento especializado e verdadeiramente carinhoso.</p>
-            <p>Nós entendemos que seu pet é um membro da família. Por isso, nossa missão é tratar cada cão, gato, pássaro ou peixe como se fosse nosso. Queremos ser o lugar de confiança onde você encontra tudo que precisa para uma vida longa e feliz ao lado do seu companheiro.</p>
-
-            <h4 class="mt-4">Nossos Valores</h4>
-            <ul class="list-unstyled">
-                <li>❤️ <strong>Amor:</strong> Acima de tudo, amor incondicional pelos animais.</li>
-                <li>✅ <strong>Qualidade:</strong> Apenas os melhores produtos, rações e serviços.</li>
-                <li>🤝 <strong>Confiança:</strong> Um ambiente seguro e honesto para você e seu pet.</li>
-                <li>😊 <strong>Alegria:</strong> Queremos que cada visita seja uma experiência feliz!</li>
-            </ul>
-        </div>
     </div>
 </div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 
-<div th:replace="~{fragments/_footer :: footer}"></div>
+<div th:replace="~{fragments/_topbar :: logoutModal}"></div>
 
-<script th:src="@{/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+
 </body>
 </html>

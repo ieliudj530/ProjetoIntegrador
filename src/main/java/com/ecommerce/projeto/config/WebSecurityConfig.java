@@ -12,7 +12,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -22,7 +21,6 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-
                         .requestMatchers(
                                 "/",
                                 "/home",
@@ -32,13 +30,10 @@ public class WebSecurityConfig {
                                 "/login",
                                 "/css/**",
                                 "/js/**",
-                                "/imagens/**",
-                                "/bootstrap-5.3.8-dist/**"
+                                "/img/**",
+                                "/vendor/**"
                         ).permitAll()
-
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-
-
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
